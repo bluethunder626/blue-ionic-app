@@ -7,24 +7,29 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding-top ion-padding-bottom">
+<ion-content class="ion-padding-bottom">
 
   <form [formGroup]="addForm">
     <ion-item mode="md">
-      <ion-label position="stacked">Amount (Php)</ion-label>
+      <ion-label position="stacked">Description *</ion-label>
+      <ion-input formControlName="description"></ion-input>
+    </ion-item>
+    <div class="error-message"
+      *ngIf="!addForm.get('description').valid && (addForm.get('description').dirty || willAdd)">
+      <span>Required field</span>
+    </div>
+
+    <ion-item mode="md">
+      <ion-label position="stacked">Amount(Php) *</ion-label>
       <ion-input
         type="number"
         formControlName="amount">
       </ion-input>
     </ion-item>
-
-    <ion-item mode="md">
-      <ion-label position="stacked">Description</ion-label>
-      <ion-textarea
-        rows="4"
-        formControlName="description">
-      </ion-textarea>
-    </ion-item>
+    <div class="error-message"
+      *ngIf="!addForm.get('amount').valid && (addForm.get('amount').dirty || willAdd)">
+      <span>{{ addForm.get('amount').errors.errorMessage }}</span>
+    </div>
 
     <ion-item mode="md">
       <ion-label position="stacked">Date</ion-label>

@@ -12,6 +12,7 @@ import { RecordsService, Record } from './../../states/records';
 export class AddPage implements OnInit {
   public addForm = new FormGroup({});
   public addAnother = false;
+  public willAdd = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,7 +25,33 @@ export class AddPage implements OnInit {
     this.initForm();
   }
 
-  public onClickAdd() {
+  initForm() {
+    this.addAnother = false;
+    this.willAdd = false;
+
+    this.addForm
+      = this.formBuilder.group({
+        amount: [
+          0,
+          Validators.compose([
+            Validators.required,
+            (control: FormControl) => {
+              let validation = null;
+              if (control.value <= 0) {
+                validation = { errorMessage: 'Must be greater than 0' };
+              }
+              return validation;
+            }
+          ])
+        ],
+        description: ['', Validators.required],
+        date: [format(new Date(), 'yyyy-MM-dd')],
+        time: [format(new Date(), 'HH:mm')],
+      });
+  }
+
+  onClickAdd() {
+    this.willAdd = true;
     if (this.addForm.valid) {
       const getFormValue = (key: string) => this.addForm.get(key).value;
 
@@ -46,36 +73,12 @@ export class AddPage implements OnInit {
     }
   }
 
-  private async showToast() {
+  async showToast() {
     const toast = await this.toastController.create({
       message: 'Record added!',
       duration: 2000,
       color: 'success',
     });
     toast.present();
-  }
-
-  private initForm() {
-    this.addAnother = false;
-
-    this.addForm
-      = this.formBuilder.group({
-        amount: [
-          0,
-          Validators.compose([
-            Validators.required,
-            (control: FormControl) => {
-              let validation = null;
-              if (control.value < 0) {
-                validation = { errorMessage: 'Minimum amount of 0' };
-              }
-              return validation;
-            }
-          ])
-        ],
-        description: [''],
-        date: [format(new Date(), 'yyyy-MM-dd')],
-        time: [format(new Date(), 'HH:mm')],
-      });
   }
 }

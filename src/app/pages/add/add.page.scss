@@ -1,5 +1,12 @@
 ion-content {
-  ion-item + ion-item {
+  ion-item {
     margin-top: 16px;
+  }
+
+  .error-message {
+    margin-top: 4px;
+    padding-left: 16px;
+    font-size: 12px;
+    color: var(--ion-color-danger);
   }
 }
