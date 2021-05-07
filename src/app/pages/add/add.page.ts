@@ -52,14 +52,16 @@ export class AddPage implements OnInit {
 
   onClickAdd() {
     this.willAdd = true;
+
     if (this.addForm.valid) {
       const getFormValue = (key: string) => this.addForm.get(key).value;
+
+      const datetime = new Date(getFormValue('date') + 'T' + getFormValue('time'));
 
       const record: Record = {
         amount: getFormValue('amount'),
         description: getFormValue('description'),
-        date: getFormValue('date'),
-        time: getFormValue('time'),
+        datetime,
       };
 
       this.recordsService.addRecord(record);

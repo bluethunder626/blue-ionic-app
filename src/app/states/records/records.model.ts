@@ -3,8 +3,7 @@ import { guid } from '@datorama/akita';
 export interface Record {
   amount: number;
   description: string;
-  date: string;
-  time: string;
+  datetime: Date;
 }
 
 export interface IRecordStore extends Record {
