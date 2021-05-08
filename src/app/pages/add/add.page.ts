@@ -56,7 +56,8 @@ export class AddPage implements OnInit {
     if (this.addForm.valid) {
       const getFormValue = (key: string) => this.addForm.get(key).value;
 
-      const datetime = new Date(getFormValue('date') + 'T' + getFormValue('time'));
+      const date = format(new Date(getFormValue('date')), 'yyyy-MM-dd');
+      const datetime = new Date(date + 'T' + getFormValue('time'));
 
       const record: Record = {
         amount: getFormValue('amount'),
