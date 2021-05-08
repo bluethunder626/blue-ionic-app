@@ -23,9 +23,6 @@ export class ViewRecordPage implements OnInit {
       .params
       .subscribe((d) => {
         if (d.id) {
-          const data = this.recordsQuery.getEntity(d.id);
-          console.log(data);
-
           this.record$ = this.recordsQuery.selectEntity(d.id);
         } else {
           this.navController.back();
