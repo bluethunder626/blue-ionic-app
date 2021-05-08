@@ -1,9 +1,66 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>list</ion-title>
+    <ion-title>Records</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding-bottom">
+
+  <ng-container *ngIf="(records$ | async).length === 0">
+    <div class="placeholder">
+      <ion-text color="medium" class="ion-text-center">
+        <h4>No record</h4>
+      </ion-text>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="(records$ | async).length > 0">
+    <ion-list lines="full">
+      <ion-virtual-scroll [items]="records$ | async" approxItemHeight="63px">
+        <ion-item
+          button
+          detail="false"
+          (click)="onClickRecord(record.id)"
+          *virtualItem="let record">
+          <ion-label mode="md">
+            <ion-grid>
+              <ion-row class="ion-justify-content-between">
+                <ion-col size="8">
+                  <div class="description text-overflow">
+                    <h3>{{ record.description }}</h3>
+                  </div>
+                  <div class="date-time">
+                    <span>{{ record.datetime | date:'yyyy-MM-dd, h:mm a' }}</span>
+                  </div>
+                </ion-col>
+                <ion-col size="4" class="ion-text-right ion-align-self-center">
+                  <div>
+                    <h2>
+                      {{ (record.amount | currency:'₱') }}
+                    </h2>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-label>
+        </ion-item>
+      </ion-virtual-scroll>
+    </ion-list>
+  </ng-container>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button [routerLink]="['/add']" routerLinkActive="router-link-active">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- Use this to mock supply multiple records -->
+<!--
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button (click)="onClickAddMulti()">
+      <ion-icon name="alert"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+ -->
 
 </ion-content>
