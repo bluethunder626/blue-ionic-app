@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ID } from '@datorama/akita';
 
 import { RecordsStore } from './records.store';
-import { Record, createRecord } from './records.model';
+import { Record, createRecord, IRecordStore } from './records.model';
 
 @Injectable({ providedIn: 'root' })
 export class RecordsService {
@@ -12,6 +12,10 @@ export class RecordsService {
   addRecord(record: Record) {
     const data = createRecord(record);
     this.recordsStore.add(data);
+  }
+
+  addRecords(records: IRecordStore[]) {
+    this.recordsStore.add(records);
   }
 
   removeRecord(id: ID) {
