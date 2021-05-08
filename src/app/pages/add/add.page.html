@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add record</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-bottom">
+
+  <form [formGroup]="addForm">
+    <ion-item mode="md">
+      <ion-label position="stacked">Description *</ion-label>
+      <ion-input formControlName="description"></ion-input>
+    </ion-item>
+    <div class="error-message"
+      *ngIf="!addForm.get('description').valid && (addForm.get('description').dirty || willAdd)">
+      <span>Required field</span>
+    </div>
+
+    <ion-item mode="md">
+      <ion-label position="stacked">Amount(Php) *</ion-label>
+      <ion-input
+        type="number"
+        formControlName="amount">
+      </ion-input>
+    </ion-item>
+    <div class="error-message"
+      *ngIf="!addForm.get('amount').valid && (addForm.get('amount').dirty || willAdd)">
+      <span>{{ addForm.get('amount').errors.errorMessage }}</span>
+    </div>
+
+    <ion-item mode="md">
+      <ion-label position="stacked">Date</ion-label>
+      <ion-datetime
+        displayFormat="YYYY-MM-DD"
+        formControlName="date">
+      </ion-datetime>
+    </ion-item>
+
+    <ion-item mode="md">
+      <ion-label position="stacked">Time</ion-label>
+      <ion-datetime
+        displayFormat="hh:mm A"
+        formControlName="time">
+      </ion-datetime>
+    </ion-item>
+  </form>
+
+  <ion-item mode="md" lines="none">
+    <ion-checkbox slot="start" [(ngModel)]="addAnother"></ion-checkbox>
+    <ion-label>Add another</ion-label>
+  </ion-item>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" (click)="onClickAdd()">
+      <ion-icon slot="start" name="add"></ion-icon>
+      Add
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
