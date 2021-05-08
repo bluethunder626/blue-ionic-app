@@ -10,6 +10,10 @@ const routes: Routes = [
     path: 'add',
     loadChildren: () => import('./pages/add/add.module').then( m => m.AddPageModule)
   },
+  {
+    path: 'view-record/:id',
+    loadChildren: () => import('./pages/view-record/view-record.module').then( m => m.ViewRecordPageModule)
+  },
 ];
 
 @NgModule({

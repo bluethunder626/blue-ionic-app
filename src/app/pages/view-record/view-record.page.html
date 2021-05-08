@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>View record</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ng-container *ngIf="record$ | async">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>{{ (record$ | async).datetime | date:'yyyy-MM-dd, h:mm a' }}</ion-card-subtitle>
+        <ion-card-title>{{ (record$ | async).amount | currency:'₱' }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>{{ (record$ | async).description }}</ion-card-content>
+    </ion-card>
+  </ng-container>
+
+</ion-content>
