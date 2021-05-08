@@ -10,7 +10,7 @@ export const createFakeRecord = () => new Promise<Record>((resolve) => {
     datetime: new Date(),
   };
 
-  return resolve(record);
+  resolve(record);
 });
 
 /**
@@ -35,7 +35,7 @@ export const createFakeIRecordStore = () => new Promise<IRecordStore>((resolve) 
     datetime: new Date(),
   };
 
-  return resolve(record);
+  resolve(record);
 });
 
 /**
